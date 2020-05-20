@@ -30,7 +30,7 @@ private:
 	float LineTraceRange = 1000000;
 
 	ATank* GetControlledTank() const;
-	void AimAtCrosshairs();
+	void AimTowardsCrosshairs();
 	bool GetSightRayHitLocation(FVector& HitLocation) const;
 	bool GetLookDirection(const FVector2D& ScreenLocation, FVector& LookDirection) const;
 	bool GetLookVectorHitLocation(const FVector& LookDirection, FVector& HitLocation) const;

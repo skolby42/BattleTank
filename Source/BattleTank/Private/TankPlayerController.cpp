@@ -18,7 +18,7 @@ void ATankPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	AimAtCrosshairs();
+	AimTowardsCrosshairs();
 }
 
 ATank* ATankPlayerController::GetControlledTank() const
@@ -26,7 +26,7 @@ ATank* ATankPlayerController::GetControlledTank() const
 	return Cast<ATank>(GetPawn());
 }
 
-void ATankPlayerController::AimAtCrosshairs()
+void ATankPlayerController::AimTowardsCrosshairs()
 {
 	if (!GetControlledTank())
 		return;
