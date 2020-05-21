@@ -1,7 +1,6 @@
 // Copyright Scott Kolby 2020
 
 #include "TankAimingComponent.h"
-#include "Tank.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
 #include "Kismet/GameplayStatics.h"
