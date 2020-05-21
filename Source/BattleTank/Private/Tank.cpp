@@ -60,10 +60,10 @@ void ATank::Fire()
 
 	// Spawn a projectile at the socket location
 
-	GetWorld()->SpawnActor<AProjectile>(
+	auto Projectile = GetWorld()->SpawnActor<AProjectile>(
 		ProjectileBlueprint,
 		Barrel->GetSocketLocation(FName("Projectile")), 
 		Barrel->GetSocketRotation(FName("Projectile")));
 
-	UE_LOG(LogTemp, Warning, TEXT("Tank firing!"));
+	Projectile->Launch(LaunchSpeed);
 }
