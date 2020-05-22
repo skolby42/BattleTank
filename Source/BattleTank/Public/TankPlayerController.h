@@ -20,6 +20,10 @@ public:
     virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
+protected:
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	ATank* GetControlledTank() const;
+
 private:
 	UPROPERTY(EditDefaultsOnly)
 	float CrosshairXLocation = 0.5;
@@ -30,7 +34,6 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	float LineTraceRange = 1000000;
 
-	ATank* GetControlledTank() const;
 	void AimTowardsCrosshairs();
 	bool GetSightRayHitLocation(FVector& HitLocation) const;
 	bool GetLookDirection(const FVector2D& ScreenLocation, FVector& LookDirection) const;
