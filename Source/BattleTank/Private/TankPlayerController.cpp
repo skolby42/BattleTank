@@ -4,14 +4,17 @@
 #include "Engine/World.h"
 #include "Math/Vector2D.h"
 #include "Tank.h"
+#include "TankAimingComponent.h"
 
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	ATank* ControlledTank = GetControlledTank();
-	if (!ControlledTank)
-		UE_LOG(LogTemp, Error, TEXT("Player controller controlled tank not found!"))
+	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	if (AimingComponent)
+		FoundAimingComponent(AimingComponent);
+	else
+		UE_LOG(LogTemp, Warning, TEXT("%s aiming component not found!"), *GetName())
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -28,7 +31,7 @@ ATank* ATankPlayerController::GetControlledTank() const
 
 void ATankPlayerController::AimTowardsCrosshairs()
 {
-	if (!GetControlledTank())
+	if (!ensure(GetControlledTank()))
 		return;
 
 	FVector HitLocation;

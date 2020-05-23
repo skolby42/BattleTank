@@ -15,19 +15,30 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 }
 
+void ATank::BeginPlay()
+{
+	Super::BeginPlay();  // Needed for BP BeginPlay to run!
+}
+
 void ATank::AimAt(FVector HitLocation)
 {
-	auto TankAimingComponent = GetOwner()->FindComponentByClass<UTankAimingComponent>();
-	if (TankAimingComponent)
-		TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
+	//TankAimingComponent = GetOwner()->FindComponentByClass<UTankAimingComponent>();
+
+	if (!ensure(TankAimingComponent))
+		return;
+
+	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 }
 
 void ATank::Fire()
 {
+	if (!ensure(Barrel))
+		return;
+
 	bool isReloaded = GetWorld()->GetTimeSeconds() - LastFireTime > ReloadTimeSeconds;
 	//bool isReloaded = FPlatformTime::Seconds() - LastFireTime > ReloadTimeSeconds;  // Alternate
 
-	if (!Barrel || !isReloaded)
+	if (!isReloaded)
 		return;
 
 	// Spawn a projectile at the socket location
@@ -41,3 +52,5 @@ void ATank::Fire()
 	LastFireTime = GetWorld()->GetTimeSeconds();
 	//LastFireTime = FPlatformTime::Seconds();
 }
+
+

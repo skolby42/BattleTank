@@ -8,6 +8,7 @@
 
 class UTankBarrel;
 class UTankTurret;
+class UTankAimingComponent;
 class AProjectile;
 
 UCLASS()
@@ -36,6 +37,10 @@ private:
 
 	double LastFireTime = 0;
 
+	UTankAimingComponent* TankAimingComponent = nullptr;
+
 	// Local barrel reference for spawning projectile
 	UTankBarrel* Barrel = nullptr;  // TODO Remove
+
+	virtual void BeginPlay() override;
 };
