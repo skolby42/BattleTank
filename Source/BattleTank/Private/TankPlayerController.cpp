@@ -23,7 +23,7 @@ void ATankPlayerController::Tick(float DeltaTime)
 
 void ATankPlayerController::AimTowardsCrosshairs()
 {	
-	if (!ensure(GetPawn()))
+	if (!GetPawn())  // If not possessing
 		return;
 
 	FVector HitLocation;
