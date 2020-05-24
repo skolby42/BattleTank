@@ -17,6 +17,7 @@ enum class EFiringStatus : uint8
 
 class UTankBarrel;
 class UTankTurret;
+class AProjectile;
 
 // Responsible for moving turret and barrel to firing position
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -34,6 +35,9 @@ public:
 public:	
 	void AimAt(FVector HitLocation);
 
+	UFUNCTION(BlueprintCallable)
+	void Fire();
+
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringStatus FiringState = EFiringStatus::Reloading;
@@ -44,6 +48,14 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 4000;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float ReloadTimeSeconds = 3.f;
+
+	double LastFireTime = 0;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	TSubclassOf<AProjectile> ProjectileBlueprint;  // Alternate: UClass*
 	
 	void MoveBarrelTowards(FVector AimDirection);
 	void MoveTurretTowards(FVector AimDirection);
