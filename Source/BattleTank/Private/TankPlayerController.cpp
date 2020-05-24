@@ -3,14 +3,13 @@
 #include "TankPlayerController.h"
 #include "Engine/World.h"
 #include "Math/Vector2D.h"
-#include "Tank.h"
 #include "TankAimingComponent.h"
 
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (ensure(AimingComponent))
 		FoundAimingComponent(AimingComponent);
 }
@@ -22,21 +21,16 @@ void ATankPlayerController::Tick(float DeltaTime)
 	AimTowardsCrosshairs();
 }
 
-ATank* ATankPlayerController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
-}
-
 void ATankPlayerController::AimTowardsCrosshairs()
-{
-	if (!ensure(GetControlledTank()))
+{	
+	if (!ensure(GetPawn()))
 		return;
-	
-	FVector HitLocation;
 
+	FVector HitLocation;
 	if (GetSightRayHitLocation(HitLocation))
 	{
-		GetControlledTank()->AimAt(HitLocation);
+		auto TankAimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+		TankAimingComponent->AimAt(HitLocation);
 	}
 }
 
@@ -69,7 +63,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(const FVector& LookDirectio
 	FHitResult HitResult;
 	FVector StartLocation = PlayerCameraManager->GetCameraLocation();
 	FVector EndLocation = StartLocation + LookDirection * LineTraceRange;
-	FCollisionQueryParams TraceParams(FName(TEXT("")), false, GetControlledTank());  // Ignore controlled tank
+	FCollisionQueryParams TraceParams(FName(TEXT("")), false, GetPawn());  // Ignore controlled tank
 
 	if (GetWorld()->LineTraceSingleByChannel(
 		HitResult,

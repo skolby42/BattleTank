@@ -8,7 +8,6 @@
 
 class UTankBarrel;
 class UTankTurret;
-class UTankAimingComponent;
 class AProjectile;
 
 UCLASS()
@@ -19,8 +18,6 @@ class BATTLETANK_API ATank : public APawn
 public:
 	// Sets default values for this pawn's properties
 	ATank();
-
-	void AimAt(FVector HitLocation);
 
 	UFUNCTION(BlueprintCallable)
 	void Fire();
@@ -37,8 +34,6 @@ private:
 	float ReloadTimeSeconds = 3.f;
 
 	double LastFireTime = 0;
-
-	UTankAimingComponent* TankAimingComponent = nullptr;
 
 	// Local barrel reference for spawning projectile
 	UTankBarrel* Barrel = nullptr;  // TODO Remove
