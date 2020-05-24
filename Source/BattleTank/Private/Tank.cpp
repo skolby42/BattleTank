@@ -18,15 +18,15 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();  // Needed for BP BeginPlay to run!
+
+	Barrel = FindComponentByClass<UTankBarrel>();
+	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 }
 
 void ATank::AimAt(FVector HitLocation)
 {
-	//TankAimingComponent = GetOwner()->FindComponentByClass<UTankAimingComponent>();
-
 	if (!ensure(TankAimingComponent))
 		return;
-
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 }
 
