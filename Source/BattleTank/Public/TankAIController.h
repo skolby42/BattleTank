@@ -15,12 +15,13 @@ UCLASS()
 class BATTLETANK_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
-	
+
+protected:
+	// Distance tank gets to player
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float AcceptanceRadius = 6000.f;
+
 private:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
-
-	// Distance tank gets to player
-	UPROPERTY(EditDefaultsOnly)
-	float AcceptanceRadius = 3000.f;
 };

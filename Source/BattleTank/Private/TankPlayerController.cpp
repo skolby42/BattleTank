@@ -27,7 +27,8 @@ void ATankPlayerController::AimTowardsCrosshairs()
 		return;
 
 	FVector HitLocation;
-	if (GetSightRayHitLocation(HitLocation))
+	bool bFoundHitLocation = GetSightRayHitLocation(HitLocation);
+	if (bFoundHitLocation)
 	{
 		auto TankAimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 		TankAimingComponent->AimAt(HitLocation);
