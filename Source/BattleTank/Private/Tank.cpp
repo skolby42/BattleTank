@@ -21,7 +21,5 @@ float ATank::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, ACo
 	int32 DamageToApply = FMath::Clamp<int32>(DamagePoints, 0, CurrentHealth);
 	CurrentHealth -= DamageToApply;
 
-	
-
 	return DamageToApply;
 }
