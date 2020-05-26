@@ -19,12 +19,18 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 public:
     virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
+	virtual void SetPawn(APawn* InPawn) override;
 
 protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 	void FoundAimingComponent(UTankAimingComponent* AimingCompRef);
 
 private:
+	UFUNCTION()
+	void OnTankDeath();
+
+	void StartSpectating();
+
 	UPROPERTY(EditDefaultsOnly)
 	float CrosshairXLocation = 0.5;
 	
