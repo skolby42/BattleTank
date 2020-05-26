@@ -29,11 +29,11 @@ void ATankPlayerController::SetPawn(APawn* InPawn)
 	if (!InPawn)
 		return;
 
-	auto PossessedTank = Cast<ATank>(InPawn);
-	if (!ensure(PossessedTank))
+	auto ControlledTank = Cast<ATank>(InPawn);
+	if (!ensure(ControlledTank))
 		return;
 
-	PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnTankDeath);
+	ControlledTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnTankDeath);
 }
 
 void ATankPlayerController::OnTankDeath()
