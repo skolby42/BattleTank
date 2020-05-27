@@ -18,7 +18,7 @@ void ATankAIController::Tick(float DeltaTime)
 
 	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
 	auto ControlledTank = GetPawn();
-	if (!ensure(PlayerTank && ControlledTank))
+	if (!PlayerTank || !ControlledTank)
 		return;
 
 	// Move towards the player
@@ -39,7 +39,7 @@ void ATankAIController::SetPawn(APawn* InPawn)
 		return;
 
 	auto ControlledTank = Cast<ATank>(InPawn);
-	if (!ensure(ControlledTank))
+	if (!ControlledTank)
 		return;
 
 	ControlledTank->OnDeath.AddUniqueDynamic(this, &ATankAIController::OnTankDeath);
