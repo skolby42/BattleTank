@@ -8,6 +8,13 @@ ATank::ATank()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
+
+	Tank = CreateDefaultSubobject<UStaticMeshComponent>(FName("Tank"));
+	SetRootComponent(Tank);
+
+	DestroyedBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Destroyed Blast"));
+	DestroyedBlast->SetupAttachment(RootComponent);
+	DestroyedBlast->bAutoActivate = false;
 }
 
 float ATank::GetHealthPercent() const
@@ -30,7 +37,10 @@ float ATank::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, ACo
 	CurrentHealth -= DamageToApply;
 	
 	if (CurrentHealth <= 0)
+	{
+		DestroyedBlast->Activate();
 		OnDeath.Broadcast();
+	}
 
 	return DamageToApply;
 }
