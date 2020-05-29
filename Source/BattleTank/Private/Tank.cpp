@@ -22,6 +22,11 @@ float ATank::GetHealthPercent() const
 	return (float)CurrentHealth / (float)StartingHealth;
 }
 
+void ATank::DestroyTimerElapsed()
+{
+	Destroy();
+}
+
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
@@ -38,8 +43,12 @@ float ATank::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, ACo
 	
 	if (CurrentHealth <= 0)
 	{
-		DestroyedBlast->Activate();
+		if (!DestroyedBlast->bHasBeenActivated)
+			DestroyedBlast->Activate();
 		OnDeath.Broadcast();
+
+		FTimerHandle DestroyTimerHandle;
+		GetWorld()->GetTimerManager().SetTimer(DestroyTimerHandle, this, &ATank::DestroyTimerElapsed, DestroyDelay);
 	}
 
 	return DamageToApply;

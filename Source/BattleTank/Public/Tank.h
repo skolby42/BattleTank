@@ -30,8 +30,13 @@ private:
 	UFUNCTION(BlueprintPure, Category = "Health")
 	float GetHealthPercent() const;
 
+	UFUNCTION()
+	void DestroyTimerElapsed();
+
 	UPROPERTY(EditDefaultsOnly)
 	int32 StartingHealth = 100;
+
+	int32 CurrentHealth;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UStaticMeshComponent* Tank = nullptr;
@@ -39,5 +44,6 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UParticleSystemComponent* DestroyedBlast = nullptr;
 
-	int32 CurrentHealth;
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float DestroyDelay = 10.f;
 };
