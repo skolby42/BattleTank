@@ -19,6 +19,9 @@ public:
 	// Sets default values for this pawn's properties
 	ATank();
 
+	UFUNCTION(BlueprintPure, Category = "Health")
+	float GetHealthPercent() const;
+
 	FTankDelegate OnDeath;
 
 private:
@@ -27,8 +30,7 @@ private:
 	// Called by the engine when damage is applied
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 
-	UFUNCTION(BlueprintPure, Category = "Health")
-	float GetHealthPercent() const;
+	
 
 	UFUNCTION()
 	void DestroyTimerElapsed();
